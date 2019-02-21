@@ -23,3 +23,7 @@ GridPane {
   -fx-minor-tick-count: 0;
   -fx-snap-to-ticks: true;
 }
+
+Text {
+  -fx-font-weight: bold;
+}
