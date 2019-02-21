@@ -8,16 +8,20 @@ import java.util.LinkedList;
 import java.util.Random;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
 
 public class Life {
 
   private static final int WORLD_SIZE = 200;
+
 
   private World world;
   private Random rng;
@@ -38,13 +42,24 @@ public class Life {
   private Slider densitySlider;
 
   @FXML
+  private Tooltip sliderValue;
+
+  @FXML
   private Button reset;
+
+  @FXML
+  private StringProperty densityTooltipText;
+
+  @FXML
+  private IntegerProperty densitySliderValue;
 
   @FXML
   private void initialize() {
     rng = new Random();
     updater = new Updater();
     terrain = new Cell[WORLD_SIZE][WORLD_SIZE];
+    densitySlider.valueProperty().addListener((v, oldVal, newVal) ->
+        sliderValue.setText(Long.toString(Math.round(densitySlider.getValue()))));
     reset(null);
   }
 
@@ -74,6 +89,7 @@ public class Life {
     running = false;
     updater.stop();
     toggleRun.setSelected(false);
+    reset.setDisable(false);
   }
 
   private class Runner extends Thread {
