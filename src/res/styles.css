@@ -26,4 +26,13 @@ GridPane {
 
 Text {
   -fx-font-weight: bold;
+  -fx-background-color: red;
+}
+
+Background {
+  -fx-background-image: ;
+}
+
+Button {
+
 }
